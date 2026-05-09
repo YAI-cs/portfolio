@@ -21,7 +21,7 @@ export default function Hero() {
             className="object-cover"
           />
         </div>
-        <figcaption className="font-sans text-[0.625rem] tracking-[0.2em] uppercase text-stone sm:text-[0.6875rem]">
+        <figcaption className="font-sans text-[0.625rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.6875rem]">
           Fig. 01 — Y.B., {site.year}
         </figcaption>
       </figure>

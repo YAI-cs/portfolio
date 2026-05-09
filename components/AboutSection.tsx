@@ -5,7 +5,7 @@ export default function AboutSection() {
     <section id="about" className="bg-cream-deep px-5 py-24 sm:px-10 sm:py-32 lg:py-40">
       <div className="mb-14 sm:mb-20">
         <h2 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
-          <span className="text-stone">02 —</span> About
+          <span className="text-ink-soft">02 —</span> About
         </h2>
       </div>
 
@@ -42,7 +42,7 @@ export default function AboutSection() {
 
         <aside className="sm:col-span-3 sm:col-start-10">
           <div className="border-t border-stone pt-5">
-            <h3 className="text-[0.6875rem] tracking-[0.2em] uppercase text-stone sm:text-[0.75rem]">
+            <h3 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
               Currently
             </h3>
             <ul className="mt-3 space-y-2 text-[0.9375rem] leading-[1.4] text-ink-soft">

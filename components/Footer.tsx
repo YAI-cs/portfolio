@@ -8,7 +8,7 @@ export default function Footer() {
     >
       <div className="mb-14 sm:mb-20">
         <h2 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
-          <span className="text-stone">03 —</span> Contact
+          <span className="text-ink-soft">03 —</span> Contact
         </h2>
       </div>
 
@@ -28,7 +28,7 @@ export default function Footer() {
             <li className="flex gap-4">
               <span
                 aria-hidden
-                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-stone"
+                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft"
               >
                 Email
               </span>
@@ -42,7 +42,7 @@ export default function Footer() {
             <li className="flex gap-4">
               <span
                 aria-hidden
-                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-stone"
+                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft"
               >
                 Located
               </span>
@@ -52,20 +52,20 @@ export default function Footer() {
         </div>
 
         <aside className="sm:col-span-4 sm:col-start-9">
-          <h3 className="text-[0.6875rem] tracking-[0.2em] uppercase text-stone sm:text-[0.75rem]">
+          <h3 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
             Colophon
           </h3>
           <dl className="mt-3 space-y-2 text-[0.875rem] leading-[1.45] text-ink-soft">
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-stone">Display</dt>
+              <dt className="w-16 shrink-0 text-ink-soft">Display</dt>
               <dd>Young Serif by Bastien Sozeau</dd>
             </div>
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-stone">Body</dt>
+              <dt className="w-16 shrink-0 text-ink-soft">Body</dt>
               <dd>Bricolage Grotesque by Mathieu Triay</dd>
             </div>
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-stone">Built</dt>
+              <dt className="w-16 shrink-0 text-ink-soft">Built</dt>
               <dd>Next.js, hand-set in {site.year}</dd>
             </div>
           </dl>
@@ -74,12 +74,12 @@ export default function Footer() {
 
       <hr className="mt-16 sm:mt-24" />
       <div className="flex items-center justify-between pt-6">
-        <span className="text-[0.6875rem] tracking-[0.2em] uppercase text-stone sm:text-[0.75rem]">
+        <span className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
           © {site.yearRoman} · {site.name}
         </span>
         <a
           href="#top"
-          className="text-[0.6875rem] tracking-[0.2em] uppercase text-stone transition-colors hover:text-clay focus-visible:text-clay sm:text-[0.75rem]"
+          className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft transition-colors hover:text-clay focus-visible:text-clay sm:text-[0.75rem]"
         >
           Top ↑
         </a>

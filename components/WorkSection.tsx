@@ -5,7 +5,7 @@ export default function WorkSection() {
     <section id="work" className="px-5 py-24 sm:px-10 sm:py-32 lg:py-40">
       <div className="mb-14 flex items-baseline justify-between sm:mb-20">
         <h2 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
-          <span className="text-stone">01 —</span> Selected Work
+          <span className="text-ink-soft">01 —</span> Selected Work
         </h2>
         <span className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
           {projects.length} {projects.length === 1 ? "project" : "projects"}
@@ -28,7 +28,7 @@ export default function WorkSection() {
                 />
                 <span
                   aria-hidden
-                  className="font-sans text-[0.75rem] tabular-nums tracking-[0.14em] text-stone sm:text-[0.8125rem]"
+                  className="font-sans text-[0.75rem] tabular-nums tracking-[0.14em] text-ink-soft sm:text-[0.8125rem]"
                 >
                   {number}
                 </span>
@@ -52,7 +52,7 @@ export default function WorkSection() {
       </ol>
 
       <div className="mt-2 border-t border-stone-soft pt-6">
-        <p className="text-[0.6875rem] tracking-[0.18em] uppercase text-stone sm:text-[0.75rem]">
+        <p className="text-[0.6875rem] tracking-[0.18em] uppercase text-ink-soft sm:text-[0.75rem]">
           More work in progress, filed under quietly.
         </p>
       </div>
