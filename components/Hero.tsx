@@ -1,111 +1,43 @@
-"use client";
-
-import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { site } from "@/data/site";
 
 const STACK = ["YAILAN", "BORDAS", "DESIGN", "ENGINEER"] as const;
 
 export default function Hero() {
-  const heroRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduceMotion.matches) return;
-
-    const letters = Array.from(
-      hero.querySelectorAll<HTMLSpanElement>("[data-letter]"),
-    );
-    if (letters.length === 0) return;
-
-    type LetterCenter = { el: HTMLSpanElement; cx: number; cy: number };
-    let centers: LetterCenter[] = [];
-    const computeCenters = () => {
-      const heroRect = hero.getBoundingClientRect();
-      centers = letters.map((el) => {
-        const rect = el.getBoundingClientRect();
-        return {
-          el,
-          cx: rect.left - heroRect.left + rect.width / 2,
-          cy: rect.top - heroRect.top + rect.height / 2,
-        };
-      });
-    };
-    computeCenters();
-
-    const target = { x: -9999, y: -9999, active: false };
-    const RADIUS = 260;
-    let raf = 0;
-
-    const onMove = (e: PointerEvent) => {
-      const rect = hero.getBoundingClientRect();
-      target.x = e.clientX - rect.left;
-      target.y = e.clientY - rect.top;
-      target.active = true;
-    };
-    const onLeave = () => {
-      target.active = false;
-    };
-    const onResize = () => {
-      computeCenters();
-    };
-
-    const tick = () => {
-      for (const { el, cx, cy } of centers) {
-        const dx = target.x - cx;
-        const dy = target.y - cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const proximity = target.active ? Math.max(0, 1 - dist / RADIUS) : 0;
-        const eased = proximity * proximity;
-        const scale = 1 + eased * 0.08;
-        const ty = -eased * 5;
-        el.style.transform = `translateY(${ty.toFixed(2)}px) scale(${scale.toFixed(3)})`;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    hero.addEventListener("pointermove", onMove);
-    hero.addEventListener("pointerleave", onLeave);
-    window.addEventListener("resize", onResize);
-    raf = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      hero.removeEventListener("pointermove", onMove);
-      hero.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-
   return (
     <section
-      ref={heroRef}
       id="top"
       aria-label={`${site.name}, ${site.role}`}
-      className="relative flex min-h-svh flex-col justify-end px-5 pb-10 pt-28 sm:px-10 sm:pb-14 sm:pt-32 lg:pb-20"
+      className="relative flex min-h-svh flex-col justify-end px-5 pb-8 pt-28 sm:px-10 sm:pb-10 sm:pt-32 lg:pb-12"
     >
+      <figure className="absolute left-5 top-24 flex flex-col items-start gap-2 sm:left-10 sm:top-28 lg:top-32">
+        <div className="relative aspect-[3/4] w-28 overflow-hidden border border-stone bg-cream-deep sm:w-36 lg:w-48">
+          <Image
+            src="/portrait.jpg"
+            alt={`Portrait of ${site.name}`}
+            fill
+            priority
+            sizes="(min-width: 1024px) 12rem, (min-width: 640px) 9rem, 7rem"
+            className="object-cover"
+          />
+        </div>
+        <figcaption className="font-sans text-[0.625rem] tracking-[0.2em] uppercase text-stone sm:text-[0.6875rem]">
+          Fig. 01 — Y.B., {site.year}
+        </figcaption>
+      </figure>
+
       <h1 className="font-display text-right leading-[0.95] tracking-tight text-ink">
         <span className="sr-only">{`${site.name}, ${site.role}.`}</span>
         {STACK.map((word, i) => (
           <span
             key={word}
             aria-hidden
-            className="block text-[clamp(2.75rem,13vw,11.5rem)]"
+            className="block text-[clamp(3rem,11vw,8.5rem)]"
             style={{
-              paddingRight: `calc(${i} * clamp(0.5rem, 2.4vw, 2.75rem))`,
+              paddingRight: `calc(${i} * clamp(0.5rem, 2vw, 2rem))`,
             }}
           >
-            {Array.from(word).map((char, j) => (
-              <span
-                key={`${word}-${j}`}
-                data-letter
-                className="inline-block will-change-transform"
-              >
-                {char}
-              </span>
-            ))}
+            {word}
           </span>
         ))}
       </h1>
