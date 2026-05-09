@@ -1,30 +1,40 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Young_Serif, Bricolage_Grotesque } from "next/font/google";
+import { site } from "@/data/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const youngSerif = Young_Serif({
+  variable: "--font-young-serif",
   subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz", "wdth"],
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "",
+  title: `${site.name} — ${site.role}`,
+  description: `Portfolio of ${site.name}, design engineer based in ${site.city}.`,
+  authors: [{ name: site.name }],
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f6f1e7",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+    <html lang="en" className={`${youngSerif.variable} ${bricolage.variable}`}>
+      <body className="bg-cream text-ink antialiased">{children}</body>
     </html>
   );
 }
