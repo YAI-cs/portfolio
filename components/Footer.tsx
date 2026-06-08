@@ -187,7 +187,7 @@ export default function Footer() {
             color: "var(--color-cream-faint)",
           }}
         >
-          © {site.yearRoman} · {site.name}
+          © {site.year} · {site.name}
         </span>
         <a
           href="#top"

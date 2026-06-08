@@ -9,57 +9,102 @@ const TV_Y = Math.PI + 1;
 const SCALE = 2.8;
 const CAM_Z = 6.5;
 const HALF_FOV = (20 * Math.PI) / 180;
-const WORD_DURATION = 3;
-const CRT_WORDS = [
-  "WELCOME",
-  "BIENVENIDO",
-  "BIENVENUE",
-  "BENVENUTO",
-  "WILLKOMMEN",
-  "BEM-VINDO",
-  "ようこそ",
-  "환영합니다",
-  "ДОБРО ПОЖАЛОВАТЬ",
-  "مرحباً",
+
+// ── Screen overlay alignment ────────────────────────────────────────────────
+// All values are fractions of the model's pre-scale local-space extents.
+// Reference: rawSize X≈178 (depth), Y≈163 (height), Z≈129 (width)
+//            rawCenter X≈−53, Y≈−55, Z≈−61
+//
+//  SCREEN_W  — overlay width  (fraction of rawSize.z). Derived from bezel opening: 99.5 / 128.987
+//  SCREEN_H  — overlay height (fraction of rawSize.y). Derived from bezel opening: 81.5 / 162.725
+//  SCREEN_X  — forward offset fraction of rawSize.x added to rawCenter.x.
+//              0.500 = exactly at front face (X≈36.35); raise to push overlay in front.
+//  SCREEN_Y  — vertical offset fraction of rawSize.y added to rawCenter.y.
+//              Positive = up, negative = down.
+//  SCREEN_Z  — lateral offset fraction of rawSize.z subtracted from rawCenter.z.
+//              Positive = shift toward TV's −Z side (screen center Z≈−63.75).
+const SCREEN_W = 0.77;
+const SCREEN_H = 0.6;
+const SCREEN_X = 0.503;
+const SCREEN_Y = 0.101;
+const SCREEN_Z = 0.1;
+
+const SMPTE_TOP: [number, number, number][] = [
+  [192, 192, 192],
+  [192, 192, 0],
+  [0, 192, 192],
+  [0, 192, 0],
+  [192, 0, 192],
+  [192, 0, 0],
+  [0, 0, 192],
 ];
 
-function drawCRTText(
-  ctx: CanvasRenderingContext2D,
-  word: string,
-  t: number,
-  alpha: number,
-) {
+const SMPTE_BOT: [number, number, number][] = [
+  [0, 0, 192],
+  [16, 16, 16],
+  [192, 0, 192],
+  [16, 16, 16],
+  [0, 192, 192],
+  [16, 16, 16],
+  [192, 192, 192],
+];
+
+function drawColorBars(ctx: CanvasRenderingContext2D, t: number) {
   const { width: w, height: h } = ctx.canvas;
-  ctx.clearRect(0, 0, w, h);
-  if (alpha <= 0.01) return;
+  const topH = Math.floor(h * 0.72);
+  const botH = h - topH;
+  const barW = w / 7;
 
-  const flicker = 0.88 + Math.sin(t * 11.3) * 0.07 + Math.sin(t * 7.1) * 0.05;
-  const a = Math.min(1, flicker * alpha);
-
-  let fontSize = Math.floor(h * 0.52);
-  ctx.font = `${fontSize}px "VT323", "Noto Sans", monospace`;
-  while (ctx.measureText(word).width > w * 0.82 && fontSize > 8) {
-    fontSize -= 2;
-    ctx.font = `${fontSize}px "VT323", "Noto Sans", monospace`;
+  for (let i = 0; i < 7; i++) {
+    const [r, g, b] = SMPTE_TOP[i];
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(Math.floor(i * barW), 0, Math.ceil(barW) + 1, topH);
+  }
+  for (let i = 0; i < 7; i++) {
+    const [r, g, b] = SMPTE_BOT[i];
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillRect(Math.floor(i * barW), topH, Math.ceil(barW) + 1, botH);
   }
 
+  // Scanlines — cheap O(h) rects, no pixel buffer needed
+  ctx.fillStyle = "rgba(0,0,0,0.22)";
+  for (let y = 0; y < h; y += 2) {
+    ctx.fillRect(0, y, w, 1);
+  }
+
+  // Rolling luminance sweep bar
+  const barPhase = (t * 0.38) % 1;
+  if (barPhase < 0.14) {
+    const barY = Math.floor((barPhase / 0.14) * h);
+    const grad = ctx.createLinearGradient(0, barY - 5, 0, barY + 5);
+    grad.addColorStop(0, "rgba(255,255,255,0)");
+    grad.addColorStop(0.5, "rgba(255,255,255,0.06)");
+    grad.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, barY - 5, w, 10);
+  }
+
+  // NO SIGNAL label with subtle flicker
+  const flicker = 0.94 + Math.sin(t * 9.3) * 0.04 + Math.sin(t * 4.7) * 0.02;
+  const noSignalY = Math.round(h * 0.44);
+  const fontSize = Math.max(10, Math.floor(h * 0.11));
+  ctx.font = `${fontSize}px "VT323", monospace`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const textY = h * 0.42;
+  const tw = ctx.measureText("NO SIGNAL").width;
+  const padX = 12,
+    padY = 8;
 
-  ctx.save();
-  ctx.shadowColor = `rgba(255,255,255,${a * 0.22})`;
-  ctx.shadowBlur = 14;
-  ctx.fillStyle = `rgba(255,255,255,${a * 0.12})`;
-  ctx.fillText(word, w / 2, textY);
-  ctx.restore();
+  ctx.fillStyle = `rgba(8,8,8,${0.82 * flicker})`;
+  ctx.fillRect(
+    w / 2 - tw / 2 - padX,
+    noSignalY - fontSize * 0.55 - padY,
+    tw + padX * 2,
+    fontSize * 1.1 + padY * 2,
+  );
 
-  ctx.save();
-  ctx.shadowColor = `rgba(220,235,255,${a * 0.45})`;
-  ctx.shadowBlur = 5;
-  ctx.fillStyle = `rgba(255,255,255,${a})`;
-  ctx.fillText(word, w / 2, textY);
-  ctx.restore();
+  ctx.fillStyle = `rgba(240,240,230,${flicker})`;
+  ctx.fillText("NO SIGNAL", w / 2, noSignalY);
 }
 
 export default function TVScene() {
@@ -77,6 +122,7 @@ export default function TVScene() {
     let tvWorldSize = new THREE.Vector3();
     let fullSceneBox: THREE.Box3 | null = null;
     let intervalId = 0;
+    let destroyed = false;
     const startTime = performance.now();
 
     const fitZFromSize = (
@@ -137,9 +183,9 @@ export default function TVScene() {
 
     // CRT canvas texture
     const textCanvas = document.createElement("canvas");
-    textCanvas.width = 512;
-    textCanvas.height = 384;
-    const ctx2d = textCanvas.getContext("2d")!;
+    textCanvas.width = 256;
+    textCanvas.height = 192;
+    const ctx2d = textCanvas.getContext("2d", { willReadFrequently: true })!;
     const screenTex = new THREE.CanvasTexture(textCanvas);
     const screenMat = new THREE.MeshBasicMaterial({
       map: screenTex,
@@ -153,6 +199,7 @@ export default function TVScene() {
     };
 
     makeLoader().load("/retro-tv.glb", (gltf) => {
+      if (destroyed) return;
       model = gltf.scene;
 
       const rawBox = new THREE.Box3().setFromObject(model);
@@ -169,14 +216,17 @@ export default function TVScene() {
       tvWorldSize = box2.getSize(new THREE.Vector3());
 
       // ── CRT screen overlay ─────────────────────────────────────────────
-      const planeW = rawSize.z * 0.72;
-      const planeH = rawSize.y * 0.62;
-      const planeX = rawCenter.x + rawSize.x * 0.47;
-      const planeY = rawCenter.y + rawSize.y * 0.05;
-      const screenGeo = new THREE.PlaneGeometry(planeW, planeH);
+      const screenGeo = new THREE.PlaneGeometry(
+        rawSize.z * SCREEN_W,
+        rawSize.y * SCREEN_H,
+      );
       screenMesh = new THREE.Mesh(screenGeo, screenMat);
       screenMesh.rotation.y = Math.PI / 2;
-      screenMesh.position.set(planeX, planeY, rawCenter.z - rawSize.z * 0.08);
+      screenMesh.position.set(
+        rawCenter.x + rawSize.x * SCREEN_X,
+        rawCenter.y + rawSize.y * SCREEN_Y,
+        rawCenter.z - rawSize.z * SCREEN_Z,
+      );
       screenMesh.renderOrder = 2;
       model.add(screenMesh);
 
@@ -193,12 +243,19 @@ export default function TVScene() {
         metalness: 0.0,
       });
       const tableMesh = new THREE.Mesh(tableGeo, tableMat);
-      tableMesh.position.set(modelCenter.x, tableY, modelCenter.z - tableD * 0.1);
+      tableMesh.position.set(
+        modelCenter.x,
+        tableY,
+        modelCenter.z - tableD * 0.1,
+      );
       tableMesh.receiveShadow = true;
       scene.add(tableMesh);
 
       const edgeGeo = new THREE.BoxGeometry(tableW, tableThick * 0.15, 0.015);
-      const edgeMat = new THREE.MeshStandardMaterial({ color: 0x1a0507, roughness: 0.55 });
+      const edgeMat = new THREE.MeshStandardMaterial({
+        color: 0x1a0507,
+        roughness: 0.55,
+      });
       const edgeMesh = new THREE.Mesh(edgeGeo, edgeMat);
       edgeMesh.position.set(
         modelCenter.x,
@@ -208,8 +265,14 @@ export default function TVScene() {
       scene.add(edgeMesh);
 
       // ── Back wall ──────────────────────────────────────────────────────
-      const wallGeo = new THREE.PlaneGeometry(tvWorldSize.x * 40, tvWorldSize.y * 8);
-      const wallMat = new THREE.MeshStandardMaterial({ color: 0x060203, roughness: 1.0 });
+      const wallGeo = new THREE.PlaneGeometry(
+        tvWorldSize.x * 40,
+        tvWorldSize.y * 8,
+      );
+      const wallMat = new THREE.MeshStandardMaterial({
+        color: 0x060203,
+        roughness: 1.0,
+      });
       const wallMesh = new THREE.Mesh(wallGeo, wallMat);
       wallMesh.position.set(
         modelCenter.x,
@@ -228,6 +291,7 @@ export default function TVScene() {
 
       // ── VHS tape stack ─────────────────────────────────────────────────
       makeLoader().load("/vhs.glb", (vhsGltf) => {
+        if (destroyed) return;
         const vhsModel = vhsGltf.scene;
 
         const vhsBox = new THREE.Box3().setFromObject(vhsModel);
@@ -274,21 +338,13 @@ export default function TVScene() {
 
       scene.add(model);
 
-      // Update canvas at 20fps — cheap enough, avoids 60fps texture uploads
+      // Canvas texture at 10fps — screen barely moves, no need for more
       intervalId = window.setInterval(() => {
         const t = (performance.now() - startTime) / 1000;
-        const wordIdx = Math.floor(t / WORD_DURATION) % CRT_WORDS.length;
-        const phase = (t % WORD_DURATION) / WORD_DURATION;
-        const wordAlpha =
-          phase < 0.06
-            ? phase / 0.06
-            : phase > 0.82
-              ? 1 - (phase - 0.82) / 0.18
-              : 1;
-        drawCRTText(ctx2d, CRT_WORDS[wordIdx], t, wordAlpha);
+        drawColorBars(ctx2d, t);
         screenTex.needsUpdate = true;
         renderFrame();
-      }, 50);
+      }, 100);
     });
 
     const init = (w: number, h: number) => {
@@ -299,7 +355,11 @@ export default function TVScene() {
           camera.updateProjectionMatrix();
           if (model) {
             const { z, lookX } = getCam(w, h);
-            camera.position.set(modelCenter.x, modelCenter.y, modelCenter.z + z);
+            camera.position.set(
+              modelCenter.x,
+              modelCenter.y,
+              modelCenter.z + z,
+            );
             camera.lookAt(modelCenter.x + lookX, modelCenter.y, modelCenter.z);
           }
         }
@@ -319,6 +379,14 @@ export default function TVScene() {
       camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
       camera.position.set(0, 0, CAM_Z);
       camera.lookAt(0, 0, 0);
+
+      // Model may have loaded before init() was called (cache hit race)
+      if (model) {
+        const { z, lookX } = getCam(w, h);
+        camera.position.set(modelCenter.x, modelCenter.y, modelCenter.z + z);
+        camera.lookAt(modelCenter.x + lookX, modelCenter.y, modelCenter.z);
+        renderFrame();
+      }
     };
 
     const ro = new ResizeObserver((entries) => {
@@ -330,6 +398,7 @@ export default function TVScene() {
     ro.observe(mount);
 
     return () => {
+      destroyed = true;
       clearInterval(intervalId);
       ro.disconnect();
       renderer?.dispose();
