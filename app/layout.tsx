@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Young_Serif, Bricolage_Grotesque } from "next/font/google";
+import { Bebas_Neue, JetBrains_Mono, Bricolage_Grotesque, VT323 } from "next/font/google";
 import { site } from "@/data/site";
+import AnchorNav from "@/components/AnchorNav";
+import PressMark from "@/components/PressMark";
 import "./globals.css";
 
-const youngSerif = Young_Serif({
-  variable: "--font-young-serif",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
@@ -17,14 +26,21 @@ const bricolage = Bricolage_Grotesque({
   axes: ["opsz", "wdth"],
 });
 
+const vt323 = VT323({
+  variable: "--font-vt323",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: `${site.name} — ${site.role}`,
-  description: `Portfolio of ${site.name}, design engineer based in ${site.city}.`,
+  description: `Portfolio of ${site.name}, software engineer based in ${site.city}.`,
   authors: [{ name: site.name }],
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f1e7",
+  themeColor: "#120d07",
   width: "device-width",
   initialScale: 1,
 };
@@ -33,8 +49,22 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${youngSerif.variable} ${bricolage.variable}`}>
-      <body className="bg-cream text-ink antialiased">{children}</body>
+    <html
+      lang="en"
+      className={`${bebasNeue.variable} ${jetbrainsMono.variable} ${bricolage.variable} ${vt323.variable}`}
+    >
+      <body className="bg-void text-cream antialiased">
+        <div className="film-grain-overlay" aria-hidden="true" />
+        <div className="crt-overlay" aria-hidden="true" />
+        <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 pt-4 sm:px-10 sm:pt-5">
+          <PressMark />
+          <AnchorNav />
+        </header>
+
+        <div>
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

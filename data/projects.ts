@@ -3,33 +3,39 @@ export type Project = {
   title: string;
   year: string;
   role: string;
+  tagline: string;
   blurb: string;
   href?: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: "field-notes",
-    title: "Field Notes",
+    slug: "insider-insights",
+    title: "Insider Insights",
     year: "2026",
-    role: "Design + Build",
+    role: "Next.js · TypeScript · PostgreSQL",
+    tagline: "The trades they didn't want you to see.",
     blurb:
-      "A small writing tool that treats the cursor like a pen. Built to feel like paper, run like a database.",
+      "Bloomberg-terminal-style insider trading dashboard. Fetches SEC EDGAR filings and Yahoo Finance data, enriches via LLM, and surfaces real-time Form 4 and STOCK Act disclosures for political and executive insiders.",
+    href: "https://insiderinsights.yailanbordas.com/",
   },
   {
-    slug: "kindling",
-    title: "Kindling",
-    year: "2025",
-    role: "Design Engineering",
+    slug: "portfolio",
+    title: "Portfolio",
+    year: "2026",
+    role: "Next.js · React 19 · Tailwind v4",
+    tagline: "Built to haunt you.",
     blurb:
-      "A reading app that quietly tracks the shape of your attention and lets you steer it without a streak counter in sight.",
+      "Single-page portfolio built with Next.js 16, React 19, and TypeScript. Custom OKLCH color token system, semantic accessibility throughout, and a prefers-reduced-motion media query that disables all transitions site-wide.",
+    href: "/",
   },
   {
-    slug: "lattice",
-    title: "Lattice",
+    slug: "text-analysis",
+    title: "Text Analysis",
     year: "2025",
-    role: "Prototype",
+    role: "Python · React · NLP",
+    tagline: "Every word leaves a mark.",
     blurb:
-      "An experiment in setting type the way a typesetter would, one block at a time. A toy for thinking about rhythm.",
+      "AI-powered text analysis model combining sentiment analysis and named entity recognition to evaluate emotional intensity and extract key information from unstructured text. React interface to visualize the results.",
   },
 ];

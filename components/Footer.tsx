@@ -4,82 +4,201 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="px-5 pb-12 pt-24 sm:px-10 sm:pb-16 sm:pt-32"
+      className="px-5 pb-10 pt-20 sm:px-10 sm:pb-14 sm:pt-28"
     >
-      <div className="mb-14 sm:mb-20">
-        <h2 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
-          <span className="text-ink-soft">03 —</span> Contact
+      {/* Section label */}
+      <div
+        className="mb-10 sm:mb-14"
+        style={{ borderTop: "1px solid oklch(28% 0.010 62)", paddingTop: "1.5rem" }}
+      >
+        <span
+          style={{
+            display: "block",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.5rem",
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "var(--color-crimson)",
+            marginBottom: "0.25rem",
+          }}
+        >
+          03
+        </span>
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            letterSpacing: "0.03em",
+            textTransform: "uppercase",
+            color: "var(--color-white)",
+            lineHeight: 1,
+          }}
+        >
+          Contact
         </h2>
       </div>
 
-      <div className="grid gap-12 sm:grid-cols-12">
+      {/* REWIND headline */}
+      <div className="mb-12 sm:mb-16">
+        <p
+          className="rewind-text"
+          aria-hidden
+          style={{ fontSize: "clamp(4rem, 12vw, 9rem)" }}
+        >
+          REWIND ◄◄
+        </p>
+        <p className="sr-only">Contact Yailan Bordas</p>
+      </div>
+
+      {/* Contact grid */}
+      <div className="grid gap-10 sm:grid-cols-12">
         <div className="sm:col-span-7">
-          <p className="font-display text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.15] tracking-tight text-ink">
+          <p
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
+              lineHeight: "1.05",
+              letterSpacing: "0.02em",
+              color: "var(--color-cream)",
+            }}
+          >
             Working on something quiet and interesting?{" "}
             <a
               href={`mailto:${site.email}`}
-              className="relative inline-block underline decoration-stone decoration-1 underline-offset-[0.2em] transition-colors hover:text-clay-deep hover:decoration-clay focus-visible:text-clay-deep focus-visible:decoration-clay"
+              style={{ color: "var(--color-crimson-bright)", textDecoration: "none" }}
+              className="transition-opacity hover:opacity-75 focus-visible:opacity-75"
             >
               Send a note.
             </a>
           </p>
 
-          <ul className="mt-10 space-y-3 text-[0.9375rem] text-ink-soft sm:text-[1rem]">
-            <li className="flex gap-4">
+          {/* Contact details */}
+          <ul className="mt-10 space-y-4">
+            <li className="flex items-baseline gap-5">
               <span
-                aria-hidden
-                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.4375rem",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  color: "var(--color-crimson-deep)",
+                  width: "4.5rem",
+                  flexShrink: 0,
+                }}
               >
                 Email
               </span>
               <a
                 href={`mailto:${site.email}`}
-                className="font-display text-[1.125rem] underline decoration-stone-soft decoration-1 underline-offset-[0.2em] transition-colors hover:text-clay-deep hover:decoration-clay focus-visible:text-clay-deep focus-visible:decoration-clay sm:text-[1.25rem]"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "clamp(0.75rem, 1.5vw, 1rem)",
+                  letterSpacing: "0.05em",
+                  color: "var(--color-crimson-bright)",
+                  textDecoration: "none",
+                  textShadow: "0 0 14px oklch(52% 0.220 20 / 0.30)",
+                }}
+                className="transition-opacity hover:opacity-75 focus-visible:opacity-75"
               >
                 {site.email}
               </a>
             </li>
-            <li className="flex gap-4">
+            <li className="flex items-baseline gap-5">
               <span
-                aria-hidden
-                className="w-20 shrink-0 text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.4375rem",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                  color: "var(--color-crimson-deep)",
+                  width: "4.5rem",
+                  flexShrink: 0,
+                }}
               >
                 Located
               </span>
-              <span>{site.city}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.6875rem",
+                  letterSpacing: "0.1em",
+                  color: "var(--color-cream-dim)",
+                }}
+              >
+                {site.city}
+              </span>
             </li>
           </ul>
         </div>
 
+        {/* Colophon */}
         <aside className="sm:col-span-4 sm:col-start-9">
-          <h3 className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
+          <h3
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.4375rem",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "var(--color-crimson-deep)",
+              marginBottom: "0.875rem",
+            }}
+          >
             Colophon
           </h3>
-          <dl className="mt-3 space-y-2 text-[0.875rem] leading-[1.45] text-ink-soft">
+          <dl
+            className="space-y-2"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.5625rem",
+              lineHeight: "1.5",
+              letterSpacing: "0.05em",
+              color: "var(--color-cream-faint)",
+            }}
+          >
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-ink-soft">Display</dt>
-              <dd>Young Serif by Bastien Sozeau</dd>
+              <dt style={{ width: "3.5rem", flexShrink: 0 }}>Display</dt>
+              <dd>Bebas Neue</dd>
             </div>
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-ink-soft">Body</dt>
-              <dd>Bricolage Grotesque by Mathieu Triay</dd>
+              <dt style={{ width: "3.5rem", flexShrink: 0 }}>Labels</dt>
+              <dd>JetBrains Mono</dd>
             </div>
             <div className="flex gap-3">
-              <dt className="w-16 shrink-0 text-ink-soft">Built</dt>
-              <dd>Next.js, hand-set in {site.year}</dd>
+              <dt style={{ width: "3.5rem", flexShrink: 0 }}>Body</dt>
+              <dd>Bricolage Grotesque</dd>
+            </div>
+            <div className="flex gap-3">
+              <dt style={{ width: "3.5rem", flexShrink: 0 }}>Built</dt>
+              <dd>Next.js, {site.year}</dd>
             </div>
           </dl>
         </aside>
       </div>
 
+      {/* Footer bar */}
       <hr className="mt-16 sm:mt-24" />
-      <div className="flex items-center justify-between pt-6">
-        <span className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.75rem]">
+      <div className="flex items-center justify-between pt-5">
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.4375rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--color-cream-faint)",
+          }}
+        >
           © {site.yearRoman} · {site.name}
         </span>
         <a
           href="#top"
-          className="text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft transition-colors hover:text-clay focus-visible:text-clay sm:text-[0.75rem]"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.4375rem",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--color-cream-faint)",
+          }}
+          className="transition-colors hover:text-amber focus-visible:text-amber"
         >
           Top ↑
         </a>

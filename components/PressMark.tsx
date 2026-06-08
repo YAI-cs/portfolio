@@ -11,9 +11,18 @@ export default function PressMark() {
     <a
       href="#top"
       aria-label={`${site.name} — back to top`}
-      className="group inline-flex h-9 w-9 items-center justify-center border border-ink/40 text-[0.6875rem] tracking-[0.14em] text-ink/80 transition-colors hover:border-clay hover:text-clay focus-visible:border-clay focus-visible:text-clay"
+      className="group inline-flex h-9 w-9 items-center justify-center border transition-colors"
+      style={{ borderColor: "oklch(38% 0.008 68 / 0.55)" }}
     >
-      <span className="font-sans">{initials}</span>
+      <span
+        className="font-display text-sm transition-colors"
+        style={{
+          color: "var(--color-cream-dim)",
+          letterSpacing: "0.12em",
+        }}
+      >
+        {initials}
+      </span>
     </a>
   );
 }

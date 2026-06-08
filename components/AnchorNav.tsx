@@ -40,14 +40,33 @@ export default function AnchorNav() {
           <a
             key={item.id}
             href={`#${item.id}`}
-            className="group relative text-[0.6875rem] tracking-[0.18em] uppercase text-ink/80 transition-colors hover:text-ink"
             aria-current={isActive ? "true" : undefined}
+            className="group relative font-mono text-[0.75rem] tracking-[0.18em] uppercase transition-colors"
+            style={{
+              color: isActive
+                ? "var(--color-white)"
+                : "oklch(55% 0.008 70 / 0.8)",
+              textShadow: isActive
+                ? "0 0 10px oklch(95% 0.006 75 / 0.4)"
+                : "none",
+            }}
           >
+            {isActive && (
+              <span
+                className="rec-dot mr-1.5 inline-block"
+                aria-hidden="true"
+                style={{ width: "5px", height: "5px" }}
+              />
+            )}
             {item.label}
             <span
-              className="pointer-events-none absolute -bottom-1 left-0 h-px bg-clay transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              style={{ width: isActive ? "100%" : "0%" }}
               aria-hidden
+              className="pointer-events-none absolute -bottom-0.5 left-0 h-px transition-[width] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{
+                width: isActive ? "100%" : "0%",
+                background: "var(--color-cream)",
+                boxShadow: "none",
+              }}
             />
           </a>
         );

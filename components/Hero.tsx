@@ -1,53 +1,145 @@
-import Image from "next/image";
+"use client";
+
+import dynamic from "next/dynamic";
 import { site } from "@/data/site";
 
-const STACK = ["YAILAN", "BORDAS", "DESIGN", "ENGINEER"] as const;
+const TVScene = dynamic(() => import("./TVScene"), { ssr: false });
 
 export default function Hero() {
   return (
     <section
       id="top"
       aria-label={`${site.name}, ${site.role}`}
-      className="relative flex min-h-svh flex-col justify-end px-5 pb-8 pt-28 sm:px-10 sm:pb-10 sm:pt-32 lg:pb-12"
+      // Mobile: flex column — text on top, TV fixed height directly below
+      // Desktop: block + relative so TV can be absolute full-bleed
+      className="flex flex-col overflow-hidden lg:relative lg:block lg:min-h-svh"
+      style={{
+        background:
+          "linear-gradient(to bottom, oklch(6% 0.018 16) 0%, oklch(9% 0.022 16) 30%, oklch(12% 0.028 16) 100%)",
+      }}
     >
-      <figure className="absolute left-5 top-24 flex flex-col items-start gap-2 sm:left-10 sm:top-28 lg:top-32">
-        <div className="relative aspect-[3/4] w-28 overflow-hidden border border-stone bg-cream-deep sm:w-36 lg:w-48">
-          <Image
-            src="/portrait.jpg"
-            alt={`Portrait of ${site.name}`}
-            fill
-            priority
-            sizes="(min-width: 1024px) 12rem, (min-width: 640px) 9rem, 7rem"
-            className="object-cover"
-          />
-        </div>
-        <figcaption className="font-sans text-[0.625rem] tracking-[0.2em] uppercase text-ink-soft sm:text-[0.6875rem]">
-          Fig. 01 — Y.B., {site.year}
-        </figcaption>
-      </figure>
+      {/* ── Mobile: text at top — hidden on desktop ── */}
+      <div className="relative z-10 shrink-0 px-5 pt-20 pb-4 sm:px-10 sm:pt-24 lg:hidden">
+        <h1 aria-label={`${site.name}, ${site.role}.`}>
+          <span className="sr-only">{`${site.name}, ${site.role}.`}</span>
+          <span aria-hidden className="flex flex-col">
+            <span
+              className="hero-title-word"
+              style={{ fontSize: "clamp(4.5rem, 20vw, 9rem)" }}
+            >
+              YAILAN
+            </span>
+            <span
+              className="hero-title-word"
+              style={{
+                fontSize: "clamp(4.5rem, 20vw, 9rem)",
+                paddingLeft: "clamp(1rem, 4.5vw, 3rem)",
+              }}
+            >
+              BORDAS
+            </span>
+          </span>
+        </h1>
 
-      <h1 className="font-display text-right leading-[0.95] tracking-tight text-ink">
-        <span className="sr-only">{`${site.name}, ${site.role}.`}</span>
-        {STACK.map((word, i) => (
-          <span
-            key={word}
-            aria-hidden
-            className="block text-[clamp(3rem,11vw,8.5rem)]"
+        <div
+          className="mt-4"
+          style={{
+            height: "1px",
+            background:
+              "linear-gradient(to right, oklch(52% 0.220 20 / 0.70), oklch(52% 0.220 20 / 0.12) 70%, transparent)",
+          }}
+        />
+
+        <div
+          className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "clamp(0.4rem, 1.6vw, 0.5625rem)",
+            letterSpacing: "0.20em",
+            textTransform: "uppercase",
+            color: "var(--color-cream-dim)",
+          }}
+        >
+          <span style={{ color: "var(--color-cream)" }}>{site.role}</span>
+          <span style={{ color: "var(--color-cream-faint)" }}>·</span>
+          <span>{site.city}</span>
+          <span style={{ color: "var(--color-cream-faint)" }}>·</span>
+          <span style={{ color: "var(--color-cream)" }}>Available</span>
+        </div>
+      </div>
+
+      {/* TV scene
+          Mobile: fixed vw-based height so it sits right below the text
+          Desktop: absolute inset-0 full-bleed background */}
+      <div className="relative h-[68vw] sm:h-[62vw] lg:absolute lg:inset-0 lg:z-0 lg:h-auto">
+        <TVScene />
+        {/* Gradient seam fix — mobile only */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-16 lg:hidden"
+          style={{
+            background: "linear-gradient(to bottom, oklch(6% 0.018 16), transparent)",
+          }}
+        />
+      </div>
+
+      {/* ── Desktop: text overlay left — hidden on mobile ── */}
+      <div className="relative z-10 hidden min-h-svh items-center lg:flex">
+        <div
+          className="flex flex-col justify-center pb-70 pt-1"
+          style={{
+            width: "45%",
+            paddingLeft: "clamp(3rem, 8vw, 7rem)",
+            paddingRight: "2rem",
+          }}
+        >
+          <h1 aria-label={`${site.name}, ${site.role}.`}>
+            <span className="sr-only">{`${site.name}, ${site.role}.`}</span>
+            <span aria-hidden className="flex flex-col">
+              <span
+                className="hero-title-word"
+                style={{ fontSize: "clamp(4rem, 9.5vw, 8.5rem)" }}
+              >
+                YAILAN
+              </span>
+              <span
+                className="hero-title-word"
+                style={{
+                  fontSize: "clamp(4rem, 9.5vw, 8.5rem)",
+                  paddingLeft: "clamp(1.5rem, 3vw, 3rem)",
+                }}
+              >
+                BORDAS
+              </span>
+            </span>
+          </h1>
+
+          <div
+            className="mt-8"
             style={{
-              paddingRight: `calc(${i} * clamp(0.5rem, 2vw, 2rem))`,
+              height: "1px",
+              background:
+                "linear-gradient(to right, oklch(52% 0.220 20 / 0.70), oklch(52% 0.220 20 / 0.12) 65%, transparent)",
+              boxShadow: "0 0 6px oklch(52% 0.220 20 / 0.30)",
+            }}
+          />
+
+          <div
+            className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.5625rem",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              color: "var(--color-cream-dim)",
             }}
           >
-            {word}
-          </span>
-        ))}
-      </h1>
-
-      <div className="mt-8 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-[0.6875rem] tracking-[0.2em] uppercase text-ink-soft sm:mt-12 sm:gap-x-4 sm:text-[0.75rem]">
-        <span>Based in {site.city}</span>
-        <span className="text-stone" aria-hidden>·</span>
-        <span>Available for work</span>
-        <span className="text-stone" aria-hidden>·</span>
-        <span>{site.yearRoman}</span>
+            <span style={{ color: "var(--color-cream)" }}>{site.role}</span>
+            <span style={{ color: "var(--color-cream-faint)" }}>·</span>
+            <span>{site.city}</span>
+            <span style={{ color: "var(--color-cream-faint)" }}>·</span>
+            <span style={{ color: "var(--color-cream)" }}>Available</span>
+          </div>
+        </div>
       </div>
     </section>
   );
