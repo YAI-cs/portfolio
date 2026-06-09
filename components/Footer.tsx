@@ -1,4 +1,5 @@
 import { site } from "@/data/site";
+import RainbowText from "./RainbowText";
 
 export default function Footer() {
   return (
@@ -15,10 +16,10 @@ export default function Footer() {
           style={{
             display: "block",
             fontFamily: "var(--font-mono)",
-            fontSize: "0.5rem",
+            fontSize: "1rem",
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "var(--color-crimson)",
+            color: "var(--color-white)",
             marginBottom: "0.25rem",
           }}
         >
@@ -27,14 +28,13 @@ export default function Footer() {
         <h2
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontSize: "clamp(3.5rem, 7vw, 6rem)",
             letterSpacing: "0.03em",
             textTransform: "uppercase",
-            color: "var(--color-white)",
             lineHeight: 1,
           }}
         >
-          Contact
+          <RainbowText text="Contact Me!" />
         </h2>
       </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
             Working on something quiet and interesting?{" "}
             <a
               href={`mailto:${site.email}`}
-              style={{ color: "var(--color-crimson-bright)", textDecoration: "none" }}
+              style={{ color: "var(--color-white)", textDecoration: "none" }}
               className="transition-opacity hover:opacity-75 focus-visible:opacity-75"
             >
               Send a note.
@@ -81,7 +81,7 @@ export default function Footer() {
                   fontSize: "0.4375rem",
                   letterSpacing: "0.25em",
                   textTransform: "uppercase",
-                  color: "var(--color-crimson-deep)",
+                  color: "var(--color-cream-faint)",
                   width: "4.5rem",
                   flexShrink: 0,
                 }}
@@ -94,9 +94,9 @@ export default function Footer() {
                   fontFamily: "var(--font-mono)",
                   fontSize: "clamp(0.75rem, 1.5vw, 1rem)",
                   letterSpacing: "0.05em",
-                  color: "var(--color-crimson-bright)",
+                  color: "var(--color-white)",
                   textDecoration: "none",
-                  textShadow: "0 0 14px oklch(52% 0.220 20 / 0.30)",
+                  textShadow: "0 0 14px rgba(255,255,255,0.20)",
                 }}
                 className="transition-opacity hover:opacity-75 focus-visible:opacity-75"
               >
@@ -110,7 +110,7 @@ export default function Footer() {
                   fontSize: "0.4375rem",
                   letterSpacing: "0.25em",
                   textTransform: "uppercase",
-                  color: "var(--color-crimson-deep)",
+                  color: "var(--color-cream-faint)",
                   width: "4.5rem",
                   flexShrink: 0,
                 }}
@@ -139,7 +139,7 @@ export default function Footer() {
               fontSize: "0.4375rem",
               letterSpacing: "0.28em",
               textTransform: "uppercase",
-              color: "var(--color-crimson-deep)",
+              color: "var(--color-cream-faint)",
               marginBottom: "0.875rem",
             }}
           >

@@ -1,5 +1,6 @@
 import type React from "react";
 import { projects, type Project } from "@/data/projects";
+import RainbowText from "./RainbowText";
 
 const PARTS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
@@ -67,10 +68,10 @@ export default function WorkSection() {
               style={{
                 display: "block",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.5rem",
+                fontSize: "1rem",
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color: "var(--color-crimson)",
+                color: "var(--color-white)",
                 marginBottom: "0.25rem",
               }}
             >
@@ -79,14 +80,13 @@ export default function WorkSection() {
             <h2
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontSize: "clamp(3.5rem, 7vw, 6rem)",
                 letterSpacing: "0.03em",
                 textTransform: "uppercase",
-                color: "var(--color-white)",
                 lineHeight: 1,
               }}
             >
-              Selected Work
+              <RainbowText text="Projects" />
             </h2>
           </div>
           <span

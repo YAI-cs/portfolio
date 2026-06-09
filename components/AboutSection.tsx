@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { site } from "@/data/site";
+import RainbowText from "./RainbowText";
 
 export default function AboutSection() {
   return (
@@ -17,10 +18,10 @@ export default function AboutSection() {
           style={{
             display: "block",
             fontFamily: "var(--font-mono)",
-            fontSize: "0.5rem",
+            fontSize: "1rem",
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "var(--color-crimson)",
+            color: "var(--color-white)",
             marginBottom: "0.25rem",
           }}
         >
@@ -29,14 +30,13 @@ export default function AboutSection() {
         <h2
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            fontSize: "clamp(3.5rem, 7vw, 6rem)",
             letterSpacing: "0.03em",
             textTransform: "uppercase",
-            color: "var(--color-white)",
             lineHeight: 1,
           }}
         >
-          About
+          <RainbowText text="About" />
         </h2>
       </div>
 
@@ -94,7 +94,7 @@ export default function AboutSection() {
           <div
             style={{
               position: "relative",
-              width: "100%",
+              width: "65%",
               aspectRatio: "3/4",
               overflow: "hidden",
             }}
@@ -137,7 +137,7 @@ export default function AboutSection() {
                   fontSize: "0.4375rem",
                   letterSpacing: "0.28em",
                   textTransform: "uppercase",
-                  color: "var(--color-crimson-deep)",
+                  color: "var(--color-cream-faint)",
                   marginBottom: "0.875rem",
                 }}
               >

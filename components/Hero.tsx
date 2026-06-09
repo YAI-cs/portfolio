@@ -1,9 +1,24 @@
 "use client";
 
+import React from "react";
 import dynamic from "next/dynamic";
 import { site } from "@/data/site";
 
 const TVScene = dynamic(() => import("./TVScene"), { ssr: false });
+
+// TV test-pattern color bars cycle: White → Yellow → Cyan → Green → Magenta → Red → Blue
+const TV_COLORS = ['#ffffff', '#ffff00', '#00ffff', '#00ff00', '#ff00ff', '#ff0000', '#3366ff'];
+
+function tvLetterStyle(index: number): React.CSSProperties {
+  const c = TV_COLORS[index % TV_COLORS.length];
+  return {
+    color: '#ffffff',
+    textShadow: `-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 1px 1px 0 ${c}bb, 2px 2px 0 ${c}99, 3px 3px 0 ${c}77, 4px 4px 0 ${c}55, 5px 5px 0 ${c}33, 6px 6px 8px ${c}44`,
+  };
+}
+
+const FIRST = 'YAILAN';
+const LAST = 'BORDAS';
 
 export default function Hero() {
   return (
@@ -15,7 +30,7 @@ export default function Hero() {
       className="flex flex-col overflow-hidden lg:relative lg:block lg:min-h-svh"
       style={{
         background:
-          "linear-gradient(to bottom, oklch(6% 0.018 16) 0%, oklch(9% 0.022 16) 30%, oklch(12% 0.028 16) 100%)",
+          "linear-gradient(to bottom, oklch(6% 0.018 260) 0%, oklch(9% 0.022 260) 30%, oklch(12% 0.028 260) 100%)",
       }}
     >
       {/* ── Mobile: text at top — hidden on desktop ── */}
@@ -27,7 +42,7 @@ export default function Hero() {
               className="hero-title-word"
               style={{ fontSize: "clamp(4.5rem, 20vw, 9rem)" }}
             >
-              YAILAN
+              {FIRST.split('').map((l, i) => <span key={i} style={tvLetterStyle(i)}>{l}</span>)}
             </span>
             <span
               className="hero-title-word"
@@ -36,7 +51,7 @@ export default function Hero() {
                 paddingLeft: "clamp(1rem, 4.5vw, 3rem)",
               }}
             >
-              BORDAS
+              {LAST.split('').map((l, i) => <span key={i} style={tvLetterStyle(FIRST.length + i)}>{l}</span>)}
             </span>
           </span>
         </h1>
@@ -46,7 +61,7 @@ export default function Hero() {
           style={{
             height: "1px",
             background:
-              "linear-gradient(to right, oklch(52% 0.220 20 / 0.70), oklch(52% 0.220 20 / 0.12) 70%, transparent)",
+              "linear-gradient(to right, rgba(255,255,255,0.75), rgba(255,255,255,0.15) 70%, transparent)",
           }}
         />
 
@@ -54,7 +69,7 @@ export default function Hero() {
           className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1"
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: "clamp(0.4rem, 1.6vw, 0.5625rem)",
+            fontSize: "clamp(0.65rem, 2.2vw, 0.875rem)",
             letterSpacing: "0.20em",
             textTransform: "uppercase",
             color: "var(--color-cream-dim)",
@@ -77,7 +92,7 @@ export default function Hero() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-16 lg:hidden"
           style={{
-            background: "linear-gradient(to bottom, oklch(6% 0.018 16), transparent)",
+            background: "linear-gradient(to bottom, oklch(6% 0.018 260), transparent)",
           }}
         />
       </div>
@@ -99,7 +114,7 @@ export default function Hero() {
                 className="hero-title-word"
                 style={{ fontSize: "clamp(4rem, 9.5vw, 8.5rem)" }}
               >
-                YAILAN
+                {FIRST.split('').map((l, i) => <span key={i} style={tvLetterStyle(i)}>{l}</span>)}
               </span>
               <span
                 className="hero-title-word"
@@ -108,7 +123,7 @@ export default function Hero() {
                   paddingLeft: "clamp(1.5rem, 3vw, 3rem)",
                 }}
               >
-                BORDAS
+                {LAST.split('').map((l, i) => <span key={i} style={tvLetterStyle(FIRST.length + i)}>{l}</span>)}
               </span>
             </span>
           </h1>
@@ -118,8 +133,8 @@ export default function Hero() {
             style={{
               height: "1px",
               background:
-                "linear-gradient(to right, oklch(52% 0.220 20 / 0.70), oklch(52% 0.220 20 / 0.12) 65%, transparent)",
-              boxShadow: "0 0 6px oklch(52% 0.220 20 / 0.30)",
+                "linear-gradient(to right, rgba(255,255,255,0.75), rgba(255,255,255,0.15) 65%, transparent)",
+              boxShadow: "0 0 6px rgba(255,255,255,0.25)",
             }}
           />
 
@@ -127,7 +142,7 @@ export default function Hero() {
             className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1"
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.5625rem",
+              fontSize: "0.875rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               color: "var(--color-cream-dim)",

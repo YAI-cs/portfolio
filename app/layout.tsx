@@ -34,7 +34,7 @@ const vt323 = VT323({
 });
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.role}`,
+  title: `Portfolio | ${site.name}`,
   description: `Portfolio of ${site.name}, software engineer based in ${site.city}.`,
   authors: [{ name: site.name }],
 };

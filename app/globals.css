@@ -2,15 +2,15 @@
 
 @theme {
   /* ── Backgrounds (deep crimson-black) ── */
-  --color-void:          oklch(8%  0.020 16);
-  --color-void-mid:      oklch(11% 0.025 16);
-  --color-void-raised:   oklch(15% 0.030 16);
+  --color-void:          oklch(8%  0 0);
+  --color-void-mid:      oklch(11% 0 0);
+  --color-void-raised:   oklch(15% 0 0);
 
   /* ── Crimson (main accent — replaces amber as UI accent) ── */
-  --color-crimson:        oklch(52% 0.220 20);
-  --color-crimson-bright: oklch(62% 0.195 22);
-  --color-crimson-deep:   oklch(38% 0.185 18);
-  --color-crimson-shadow: oklch(22% 0.090 15);
+  --color-crimson:        oklch(52% 0.220 260);
+  --color-crimson-bright: oklch(62% 0.195 260);
+  --color-crimson-deep:   oklch(38% 0.185 260);
+  --color-crimson-shadow: oklch(22% 0.090 260);
 
   /* ── Amber / Gold (hardware and TV elements only) ── */
   --color-amber:         oklch(72% 0.160 75);
@@ -19,25 +19,29 @@
   --color-amber-shadow:  oklch(28% 0.080 60);
 
   /* ── Text (crimson-tinted neutrals) ── */
-  --color-white:         oklch(94% 0.005 18);
-  --color-cream:         oklch(85% 0.008 18);
-  --color-cream-dim:     oklch(63% 0.007 17);
-  --color-cream-faint:   oklch(38% 0.005 16);
+  --color-white:         oklch(94% 0.005 260);
+  --color-cream:         oklch(85% 0.008 260);
+  --color-cream-dim:     oklch(63% 0.007 260);
+  --color-cream-faint:   oklch(38% 0.005 260);
 
   /* ── Accents ── */
   --color-phosphor:      oklch(78% 0.180 145);
   --color-rec:           oklch(55% 0.220 25);
 
   /* ── Hardware (darker, crimson-tinged) ── */
-  --color-tape:          oklch(12% 0.012 16);
-  --color-tape-raised:   oklch(20% 0.016 18);
-  --color-bezel:         oklch(20% 0.016 18);
-  --color-bezel-light:   oklch(34% 0.018 20);
+  --color-tape:          oklch(12% 0.012 260);
+  --color-tape-raised:   oklch(20% 0.016 260);
+  --color-bezel:         oklch(20% 0.016 260);
+  --color-bezel-light:   oklch(34% 0.018 260);
 
   /* ── Fonts ── */
   --font-display: var(--font-bebas), "Arial Black", Impact, sans-serif;
   --font-sans:    var(--font-bricolage), -apple-system, system-ui, sans-serif;
   --font-mono:    var(--font-jetbrains), "Courier New", monospace;
+}
+
+:root {
+  --color-rec: oklch(55% 0.220 25);
 }
 
 @layer base {
@@ -87,7 +91,7 @@
 
   hr {
     border: 0;
-    border-top: 1px solid oklch(20% 0.014 18);
+    border-top: 1px solid oklch(20% 0 0);
     margin: 0;
   }
 }
@@ -145,8 +149,8 @@
   background: linear-gradient(
     to right,
     transparent,
-    oklch(62% 0.195 22 / 0.10) 20%,
-    oklch(62% 0.195 22 / 0.10) 80%,
+    oklch(62% 0.195 260 / 0.10) 20%,
+    oklch(62% 0.195 260 / 0.10) 80%,
     transparent
   );
   pointer-events: none;
@@ -182,8 +186,8 @@
   transform: perspective(550px) rotateX(68deg);
   transform-origin: 50% 100%;
   background-image:
-    linear-gradient(oklch(52% 0.220 20 / 0.14) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(52% 0.220 20 / 0.14) 1px, transparent 1px);
+    linear-gradient(oklch(52% 0.220 260 / 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(52% 0.220 260 / 0.14) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: hero-grid-scroll 14s linear infinite;
   pointer-events: none;
@@ -198,8 +202,8 @@
   height: 80px;
   background: linear-gradient(
     to top,
-    oklch(52% 0.220 20 / 0.24) 0%,
-    oklch(52% 0.220 20 / 0.06) 40%,
+    oklch(52% 0.220 260 / 0.24) 0%,
+    oklch(52% 0.220 260 / 0.06) 40%,
     transparent 100%
   );
   pointer-events: none;
@@ -218,17 +222,17 @@
   display: block;
   text-shadow:
     /* Crimson 3D extrusion */
-    1px 1px 0 oklch(56% 0.228 20),
-    2px 2px 0 oklch(46% 0.215 19),
-    3px 3px 0 oklch(36% 0.190 18),
-    4px 4px 0 oklch(26% 0.158 16),
-    5px 5px 0 oklch(17% 0.115 14),
-    6px 6px 0 oklch(10% 0.068 12),
-    7px 7px 0 oklch(5%  0.032 10),
-    8px 8px 12px oklch(2% 0.010 8 / 0.55),
+    1px 1px 0 oklch(56% 0.228 260),
+    2px 2px 0 oklch(46% 0.215 260),
+    3px 3px 0 oklch(36% 0.190 260),
+    4px 4px 0 oklch(26% 0.158 260),
+    5px 5px 0 oklch(17% 0.115 260),
+    6px 6px 0 oklch(10% 0.068 260),
+    7px 7px 0 oklch(5%  0.032 260),
+    8px 8px 12px oklch(2% 0.010 260 / 0.55),
     /* Outer crimson bloom */
-    0 0 45px oklch(52% 0.220 20 / 0.35),
-    0 0 90px oklch(52% 0.220 20 / 0.14);
+    0 0 45px oklch(52% 0.220 260 / 0.35),
+    0 0 90px oklch(52% 0.220 260 / 0.14);
 }
 
 /* ────────────────────────────────────────────────
@@ -243,9 +247,9 @@
   transform-origin: top center;
   margin-top: 14px;
   box-shadow:
-    inset 0 -2px 0 oklch(8% 0.006 14 / 0.9),
+    inset 0 -2px 0 oklch(8% 0.006 260 / 0.9),
     0 14px 35px oklch(0% 0 0 / 0.65),
-    0 0 0 1px oklch(10% 0.007 15),
+    0 0 0 1px oklch(10% 0.007 260),
     0 0 18px oklch(72% 0.160 75 / 0.05);
 }
 
@@ -260,18 +264,18 @@
   height: 14px;
   min-width: 16px;
   padding: 0 1px;
-  background: linear-gradient(to bottom, oklch(26% 0.012 18), oklch(16% 0.010 16));
+  background: linear-gradient(to bottom, oklch(26% 0.012 260), oklch(16% 0.010 260));
   border-radius: 2px;
   box-shadow:
-    inset 0 1px 0 oklch(38% 0.014 20 / 0.45),
-    0 2px 0 oklch(6% 0.005 14 / 0.85);
+    inset 0 1px 0 oklch(38% 0.014 260 / 0.45),
+    0 2px 0 oklch(6% 0.005 260 / 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 3.5px;
   letter-spacing: 0.03em;
-  color: oklch(45% 0.010 18);
+  color: oklch(45% 0.010 260);
   text-transform: uppercase;
   flex-shrink: 0;
   user-select: none;
@@ -304,17 +308,17 @@
   padding: 20px 20px 15px;
   position: relative;
   box-shadow:
-    inset 0 1px 0 oklch(46% 0.016 22 / 0.55),
-    inset 0 -2px 0 oklch(8% 0.006 14 / 0.9),
+    inset 0 1px 0 oklch(46% 0.016 260 / 0.55),
+    inset 0 -2px 0 oklch(8% 0.006 260 / 0.9),
     0 40px 120px oklch(0% 0 0 / 0.85),
     0 10px 30px oklch(0% 0 0 / 0.6),
-    0 0 0 1px oklch(10% 0.007 15),
+    0 0 0 1px oklch(10% 0.007 260),
     0 0 80px oklch(72% 0.160 75 / 0.06);
   width: 100%;
 }
 
 .hero-monitor-screen-bezel {
-  background: oklch(6% 0.005 14);
+  background: oklch(6% 0.005 260);
   border-radius: 10px;
   padding: 16px;
   box-shadow:
@@ -394,8 +398,8 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-bezel-light), var(--color-tape));
   box-shadow:
-    inset 0 1px 2px oklch(44% 0.016 22 / 0.35),
-    inset 0 -1px 2px oklch(4% 0.003 14 / 0.8),
+    inset 0 1px 2px oklch(44% 0.016 260 / 0.35),
+    inset 0 -1px 2px oklch(4% 0.003 260 / 0.8),
     0 2px 5px oklch(0% 0 0 / 0.6);
 }
 
@@ -409,7 +413,7 @@
 .hero-monitor-stand-base {
   width: 200px;
   height: 11px;
-  background: linear-gradient(to right, var(--color-tape), oklch(22% 0.012 18), var(--color-tape));
+  background: linear-gradient(to right, var(--color-tape), oklch(22% 0.012 260), var(--color-tape));
   margin: 0 auto;
   border-radius: 0 0 6px 6px;
   box-shadow: 0 6px 20px oklch(0% 0 0 / 0.5);
@@ -440,17 +444,17 @@
   padding: 20px 20px 16px;
   position: relative;
   box-shadow:
-    inset 0 1px 0 oklch(42% 0.016 22 / 0.55),
-    inset 0 -2px 0 oklch(8% 0.006 14 / 0.9),
+    inset 0 1px 0 oklch(42% 0.016 260 / 0.55),
+    inset 0 -2px 0 oklch(8% 0.006 260 / 0.9),
     0 28px 80px oklch(0% 0 0 / 0.78),
     0 10px 24px oklch(0% 0 0 / 0.5),
-    0 0 0 1px oklch(10% 0.007 15),
+    0 0 0 1px oklch(10% 0.007 260),
     0 0 60px oklch(72% 0.160 75 / 0.06);
   width: 100%;
 }
 
 .tv-screen-bezel {
-  background: oklch(8% 0.007 14);
+  background: oklch(8% 0.007 260);
   border-radius: 8px;
   padding: 14px;
   box-shadow:
@@ -559,7 +563,7 @@
   font-size: clamp(0.4375rem, 1.1vw, 0.5625rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: oklch(85% 0.008 18 / 0.70);
+  color: oklch(85% 0 0 / 0.70);
   margin-bottom: 10px;
 }
 
@@ -567,7 +571,7 @@
   font-family: var(--font-mono);
   font-size: clamp(0.5rem, 1.3vw, 0.6875rem);
   line-height: 1.65;
-  color: oklch(85% 0.008 18 / 0.65);
+  color: oklch(85% 0 0 / 0.65);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -602,7 +606,7 @@
   font-family: var(--font-mono);
   font-size: 0.5rem;
   letter-spacing: 0.35em;
-  color: oklch(28% 0.008 16);
+  color: oklch(28% 0 0);
   text-transform: uppercase;
 }
 
@@ -634,11 +638,11 @@
   width: 100%;
   max-width: 160px;
   height: 12px;
-  background: oklch(5% 0.004 14);
+  background: oklch(5% 0.004 260);
   border-radius: 2px;
   box-shadow:
     inset 0 3px 5px oklch(0% 0 0 / 0.9),
-    0 1px 0 oklch(36% 0.012 20 / 0.4);
+    0 1px 0 oklch(36% 0.012 260 / 0.4);
 }
 
 .tv-controls {
@@ -661,7 +665,7 @@
   font-family: var(--font-mono);
   font-size: 0.375rem;
   letter-spacing: 0.18em;
-  color: oklch(28% 0.012 18);
+  color: oklch(28% 0.012 260);
   text-transform: uppercase;
 }
 
@@ -676,8 +680,8 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-bezel-light), var(--color-tape));
   box-shadow:
-    inset 0 1px 2px oklch(42% 0.016 22 / 0.35),
-    inset 0 -1px 2px oklch(4% 0.004 14 / 0.7),
+    inset 0 1px 2px oklch(42% 0.016 260 / 0.35),
+    inset 0 -1px 2px oklch(4% 0.004 260 / 0.7),
     0 1px 3px oklch(0% 0 0 / 0.5);
 }
 
@@ -691,7 +695,7 @@
 .tv-stand-base {
   width: 140px;
   height: 9px;
-  background: linear-gradient(to right, var(--color-tape), oklch(18% 0.012 18), var(--color-tape));
+  background: linear-gradient(to right, var(--color-tape), oklch(18% 0.012 260), var(--color-tape));
   margin: 0 auto;
   border-radius: 0 0 5px 5px;
   box-shadow: 0 5px 15px oklch(0% 0 0 / 0.5);
@@ -718,8 +722,8 @@
       oklch(100% 0 0 / 0.010) 3px,
       oklch(100% 0 0 / 0.010) 4px
     ),
-    oklch(11% 0.028 18);
-  border-top: 3px solid var(--color-crimson);
+    oklch(11% 0 0);
+  border-top: 3px solid var(--color-white);
   min-height: 420px;
   text-decoration: none;
   color: inherit;
@@ -736,21 +740,21 @@ a.horror-poster-card {
 
 a.horror-poster-card:hover {
   box-shadow:
-    0 0 0 1px oklch(52% 0.220 20 / 0.55),
-    0 0 55px oklch(52% 0.220 20 / 0.14),
-    inset 0 0 90px oklch(52% 0.220 20 / 0.04);
+    0 0 0 1px oklch(94% 0 0 / 0.55),
+    0 0 55px oklch(94% 0 0 / 0.10),
+    inset 0 0 90px oklch(94% 0 0 / 0.03);
 }
 
 a.horror-poster-card:hover .poster-title {
   text-shadow:
-    1px 1px 0 oklch(35% 0.158 18),
-    2px 2px 0 oklch(24% 0.125 16),
-    3px 3px 5px oklch(6% 0.036 12 / 0.5),
-    0 0 28px oklch(52% 0.220 20 / 0.32);
+    1px 1px 0 oklch(35% 0 0),
+    2px 2px 0 oklch(24% 0 0),
+    3px 3px 5px oklch(6% 0 0 / 0.5),
+    0 0 28px oklch(94% 0 0 / 0.25);
 }
 
 a.horror-poster-card:hover .poster-arrow {
-  color: var(--color-crimson);
+  color: var(--color-white);
   transform: translate(3px, -3px);
 }
 
@@ -759,7 +763,7 @@ a.horror-poster-card:hover .poster-arrow {
   font-family: var(--font-mono);
   font-size: 0.5rem;
   letter-spacing: 0.22em;
-  color: var(--color-crimson);
+  color: var(--color-white);
   margin-bottom: 1rem;
 }
 
@@ -772,10 +776,10 @@ a.horror-poster-card:hover .poster-arrow {
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   text-shadow:
-    1px 1px 0 oklch(32% 0.148 18),
-    2px 2px 0 oklch(22% 0.118 16),
-    3px 3px 0 oklch(13% 0.078 13),
-    4px 4px 6px oklch(4% 0.020 10 / 0.50);
+    1px 1px 0 oklch(32% 0 0),
+    2px 2px 0 oklch(22% 0 0),
+    3px 3px 0 oklch(13% 0 0),
+    4px 4px 6px oklch(4% 0 0 / 0.50);
 }
 
 .poster-rule {
@@ -783,8 +787,8 @@ a.horror-poster-card:hover .poster-arrow {
   height: 1px;
   background: linear-gradient(
     to right,
-    var(--color-crimson) 0%,
-    oklch(52% 0.220 20 / 0.22) 55%,
+    var(--color-white) 0%,
+    oklch(94% 0 0 / 0.22) 55%,
     transparent 100%
   );
   margin-bottom: 1.5rem;
@@ -812,7 +816,7 @@ a.horror-poster-card:hover .poster-arrow {
 .poster-credits {
   margin-top: auto;
   padding-top: 1.125rem;
-  border-top: 1px solid oklch(20% 0.016 18);
+  border-top: 1px solid oklch(20% 0 0);
 }
 
 .poster-stack {
@@ -830,7 +834,7 @@ a.horror-poster-card:hover .poster-arrow {
   bottom: 1.5rem;
   right: 1.5rem;
   font-size: 0.875rem;
-  color: oklch(52% 0.220 20 / 0.42);
+  color: oklch(94% 0 0 / 0.42);
   transition: color 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   font-family: var(--font-mono);
   pointer-events: none;
@@ -846,11 +850,10 @@ a.horror-poster-card:hover .poster-arrow {
   line-height: 0.92;
   letter-spacing: 0.02em;
   text-shadow:
-    1px 1px 0 oklch(38% 0.158 18),
-    2px 2px 0 oklch(28% 0.128 16),
-    3px 3px 0 oklch(18% 0.095 13),
-    4px 4px 6px oklch(6% 0.038 10 / 0.45),
-    0 0 16px oklch(52% 0.220 20 / 0.18);
+    1px 1px 0 oklch(38% 0 0),
+    2px 2px 0 oklch(28% 0 0),
+    3px 3px 0 oklch(18% 0 0),
+    4px 4px 6px oklch(6% 0 0 / 0.45);
 }
 
 /* ────────────────────────────────────────────────
@@ -863,13 +866,11 @@ a.horror-poster-card:hover .poster-arrow {
   line-height: 0.9;
   letter-spacing: 0.03em;
   text-shadow:
-    1px 1px 0 oklch(40% 0.162 18),
-    2px 2px 0 oklch(30% 0.132 16),
-    3px 3px 0 oklch(20% 0.100 13),
-    4px 4px 0 oklch(12% 0.065 11),
-    5px 5px 8px oklch(4% 0.022 9 / 0.45),
-    0 0 22px oklch(52% 0.220 20 / 0.32),
-    0 0 50px oklch(52% 0.220 20 / 0.16);
+    1px 1px 0 oklch(40% 0 0),
+    2px 2px 0 oklch(30% 0 0),
+    3px 3px 0 oklch(20% 0 0),
+    4px 4px 0 oklch(12% 0 0),
+    5px 5px 8px oklch(4% 0 0 / 0.45);
 }
 
 /* ────────────────────────────────────────────────
