@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <main className="relative">
       <Hero />
-      <WorkSection />
       <AboutSection />
+      <WorkSection />
       <Footer />
     </main>
   );

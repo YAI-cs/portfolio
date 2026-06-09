@@ -25,7 +25,7 @@ export default function AboutSection() {
             marginBottom: "0.25rem",
           }}
         >
-          02
+          01
         </span>
         <h2
           style={{

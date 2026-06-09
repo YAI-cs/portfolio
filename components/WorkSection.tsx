@@ -1,31 +1,44 @@
 import type React from "react";
+import Image from "next/image";
 import { projects, type Project } from "@/data/projects";
 import RainbowText from "./RainbowText";
 
 const PARTS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
 
 function HorrorPoster({ project, index, style }: { project: Project; index: number; style?: React.CSSProperties }) {
-  const part = PARTS[index] ?? String(index + 1).padStart(2, "0");
+  const cardStyle: React.CSSProperties = {
+    ...style,
+    gridTemplateColumns: project.screenshot ? "55% 1fr" : "1fr",
+  };
+
+  const RAINBOW = 'linear-gradient(to right, #ffffff 0%,#ffffff 14.28%,#ffff00 14.28%,#ffff00 28.57%,#00ffff 28.57%,#00ffff 42.85%,#00ff00 42.85%,#00ff00 57.14%,#ff00ff 57.14%,#ff00ff 71.42%,#ff0000 71.42%,#ff0000 85.71%,#3366ff 85.71%,#3366ff 100%)';
 
   const inner = (
     <>
-      <span className="poster-year">{project.year}</span>
-
-      <h3 className="poster-title">{project.title}</h3>
-
-      <div className="poster-rule" aria-hidden />
-
-      <p className="poster-tagline">&ldquo;{project.tagline}&rdquo;</p>
-
-      <p className="poster-blurb">{project.blurb}</p>
-
-      <div className="poster-credits">
-        <span className="poster-stack">{project.role}</span>
-      </div>
-
-      {project.href && (
-        <span className="poster-arrow" aria-hidden>↗</span>
+      <div style={{ height: '3px', background: RAINBOW, gridColumn: '1 / -1' }} />
+      {project.screenshot && (
+        <div className="poster-image">
+          <Image
+            src={project.screenshot}
+            alt={`Screenshot of ${project.title}`}
+            fill
+            sizes="(max-width: 640px) 100vw, 55vw"
+            className="object-contain"
+          />
+        </div>
       )}
+
+      <div className="poster-content">
+        <span className="poster-year">{project.year}</span>
+        <h3 className="poster-title">{project.title}</h3>
+        <div className="poster-rule" aria-hidden />
+        <p className="poster-tagline">&ldquo;{project.tagline}&rdquo;</p>
+        <p className="poster-blurb">{project.blurb}</p>
+        <div className="poster-credits">
+          <span className="poster-stack">{project.role}</span>
+        </div>
+        {project.href && <span className="poster-arrow" aria-hidden>↗</span>}
+      </div>
     </>
   );
 
@@ -35,7 +48,7 @@ function HorrorPoster({ project, index, style }: { project: Project; index: numb
       <a
         href={project.href}
         className="horror-poster-card"
-        style={style}
+        style={cardStyle}
         aria-label={`View project: ${project.title}`}
         {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
@@ -45,7 +58,7 @@ function HorrorPoster({ project, index, style }: { project: Project; index: numb
   }
 
   return (
-    <div className="horror-poster-card" style={style} role="article">
+    <div className="horror-poster-card" style={cardStyle} role="article">
       {inner}
     </div>
   );
@@ -75,7 +88,7 @@ export default function WorkSection() {
                 marginBottom: "0.25rem",
               }}
             >
-              01
+              02
             </span>
             <h2
               style={{
@@ -105,7 +118,7 @@ export default function WorkSection() {
       </div>
 
       {/* Horror poster grid */}
-      <div className="horror-poster-grid">
+      <div className="horror-poster-grid" style={{ maxWidth: "1200px", marginInline: "auto", width: "100%" }}>
         {projects.map((project, i) => (
           <HorrorPoster
             key={project.slug}

@@ -708,12 +708,11 @@
 .horror-poster-grid {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 }
 
 .horror-poster-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1.75rem 1.5rem 1.5rem;
+  display: grid;
   background:
     repeating-linear-gradient(
       0deg,
@@ -723,15 +722,28 @@
       oklch(100% 0 0 / 0.010) 4px
     ),
     oklch(11% 0 0);
-  border-top: 3px solid var(--color-white);
-  min-height: 420px;
   text-decoration: none;
   color: inherit;
   cursor: default;
   overflow: hidden;
   transition: box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Slight top shadow so stacked cards show depth */
-  box-shadow: 0 -6px 24px oklch(0% 0 0 / 0.55);
+  box-shadow: 0 4px 24px oklch(0% 0 0 / 0.55);
+}
+
+.poster-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  align-self: center;
+  width: 100%;
+  border-right: 1px solid oklch(20% 0 0);
+  background: oklch(8% 0 0);
+}
+
+.poster-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 1.5rem 1.5rem;
+  position: relative;
 }
 
 a.horror-poster-card {
@@ -769,7 +781,7 @@ a.horror-poster-card:hover .poster-arrow {
 
 .poster-title {
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 5vw, 3.75rem);
+  font-size: clamp(2rem, 3.5vw, 3rem);
   line-height: 0.88;
   letter-spacing: 0.025em;
   color: var(--color-white);

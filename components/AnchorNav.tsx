@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const ITEMS = [
-  { id: "work", label: "Work" },
   { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
+  { id: "work", label: "Projects" },
+  { id: "contact", label: "Contact Me" },
 ] as const;
 
 export default function AnchorNav() {
